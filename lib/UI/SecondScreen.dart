@@ -27,7 +27,6 @@ class SecondScreen extends StatelessWidget {
      return BlocConsumer <AppCubit,AppState>(
       listener: (context,state){},
       builder: (context,state) {
-        // final cubit = AppCubit.get(context);
         return Stack(
             children: [
               Container(

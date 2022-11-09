@@ -1,6 +1,8 @@
 import 'package:doctor_app/UI/SecondScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../constants/colors.dart';
+import '../logic/cubit_cubit.dart';
 
 class FirstScreen extends StatefulWidget {
   const FirstScreen({Key? key}) : super(key: key);
@@ -172,267 +174,296 @@ Widget thirdDoctorList() {
   @override
 
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Stack(
-        children: [
-          Container(
-            color: MyColors.myBlue,
-          ),
-          Container(
-            margin: const EdgeInsets.only(top: 60, left: 30, right: 25),
-            child: Row(
+    return BlocConsumer <AppCubit,AppState>(
+        listener: (context,state){},
+        builder: (context,state) {
+          return Scaffold(
+            resizeToAvoidBottomInset: false,
+            body: Stack(
               children: [
-                const Icon(Icons.list, color: Colors.white, size: 30,),
-                const Expanded(child: SizedBox()),
-                const Icon(Icons.add_alert_sharp, color: Colors.white, size: 25,),
-                const SizedBox(width: 15,),
-                Image.asset('assets/image/image2.jpg', width: 30, height: 30,),
+                Container(
+                  color: MyColors.myBlue,
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 60, left: 30, right: 25),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.list, color: Colors.white, size: 30,),
+                      const Expanded(child: SizedBox()),
+                      const Icon(
+                        Icons.add_alert_sharp, color: Colors.white, size: 25,),
+                      const SizedBox(width: 15,),
+                      Image.asset(
+                        'assets/image/image2.jpg', width: 30, height: 30,),
+                    ],
+                  ),
+                ),
+                Container(
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width,
+                    margin: const EdgeInsets.only(top: 100),
+                    decoration: const BoxDecoration(
+                        color: MyColors.myGrey,
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(30),
+                            topLeft: Radius.circular(30))),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(top: 20, left: 30),
+                          child: const Text(
+                            "Hi,Habiba", style: TextStyle(fontSize: 17),),
+                        ),
+                        const SizedBox(height: 10,),
+                        Container(
+                          margin: const EdgeInsets.only(left: 30),
+                          child: const Text("Welcome Back", style: TextStyle(
+                              fontSize: 25, fontWeight: FontWeight.bold),),
+                        ),
+                        const SizedBox(height: 25,),
+                        Container(
+                          margin: const EdgeInsets.only(left: 30, right: 30),
+                          child: TextFormField(
+                              textAlign: TextAlign.left,
+                              textDirection: TextDirection.ltr,
+                              cursorHeight: 30,
+                              decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  labelStyle: TextStyle(
+                                      color: Colors.grey.shade600),
+                                  contentPadding: const EdgeInsets.only(
+                                      left: 20),
+                                  labelText: "Search ... ",
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: const BorderSide(
+                                      width: 0,
+                                      style: BorderStyle.none,
+                                    ),
+                                  ),
+                                  suffixIcon: Container(
+                                    decoration: const BoxDecoration(
+                                      color: MyColors.myBrown,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10)),),
+                                    child: const Icon(
+                                      Icons.search, color: Colors.white,),
+                                  )
+                              )
+                          ),
+                        ),
+                        const SizedBox(height: 40,),
+                        Container(
+                          margin: const EdgeInsets.only(left: 30),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              const Text('Category', style: TextStyle(
+                                  fontSize: 19, fontWeight: FontWeight.bold)),
+                              const Expanded(child: SizedBox()),
+                              Container(
+                                margin: const EdgeInsets.only(right: 30),
+                                child: const Text(
+                                    'All See', style: TextStyle(fontSize: 15)),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 20,),
+                        SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                Container(
+                                  decoration: const BoxDecoration(
+                                      color: MyColors.myBrown,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(
+                                              10))),
+                                  width: 90,
+                                  height: 120,
+                                  margin: const EdgeInsets.only(left: 30),
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        margin: const EdgeInsets.only(top: 20),
+                                        child: Image.asset(
+                                          'assets/image/teeth.png', width: 30,),
+                                      ),
+                                      Container(
+                                        margin: const EdgeInsets.only(top: 10),
+                                        child: const Text(
+                                          'Dental', style: TextStyle(
+                                            color: MyColors.myWhite,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15),),
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.all(5),
+                                        child: const Text('26 Doctors',
+                                          style: TextStyle(
+                                              color: MyColors.myWhite,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 8),),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  decoration: const BoxDecoration(
+                                      color: MyColors.myBrown,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(
+                                              10))),
+                                  width: 90,
+                                  height: 120,
+                                  margin: const EdgeInsets.only(left: 20),
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        margin: const EdgeInsets.only(top: 20),
+                                        child: Image.asset(
+                                          'assets/image/heart.png', width: 30,),
+                                      ),
+                                      Container(
+                                        margin: const EdgeInsets.only(top: 10),
+                                        child: const Text(
+                                          'Heart', style: TextStyle(
+                                            color: MyColors.myWhite,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15),),
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.all(5),
+                                        // margin: EdgeInsets.only(top: 10),
+                                        child: const Text('16 Doctors',
+                                          style: TextStyle(
+                                              color: MyColors.myWhite,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 8),),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  decoration: const BoxDecoration(
+                                      color: MyColors.myBrown,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(
+                                              10))),
+                                  width: 90,
+                                  height: 120,
+                                  margin: const EdgeInsets.only(left: 20),
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        margin: const EdgeInsets.only(top: 20),
+                                        child: Image.asset(
+                                          'assets/image/brain.png', width: 30,),
+                                      ),
+                                      Container(
+                                        margin: const EdgeInsets.only(top: 10),
+                                        child: const Text(
+                                          'Brain', style: TextStyle(
+                                            color: MyColors.myWhite,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15),),
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.all(5),
+                                        // margin: EdgeInsets.only(top: 10),
+                                        child: const Text('32 Doctors',
+                                          style: TextStyle(
+                                              color: MyColors.myWhite,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 8),),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  decoration: const BoxDecoration(
+                                      color: MyColors.myBrown,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(
+                                              10))),
+                                  width: 90,
+                                  height: 120,
+                                  margin: const EdgeInsets.only(
+                                      right: 30, left: 20),
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        margin: const EdgeInsets.only(top: 30),
+                                        child: Image.asset(
+                                          'assets/image/eye.png', width: 30,),
+                                      ),
+                                      Container(
+                                        margin: const EdgeInsets.only(top: 2),
+                                        child: const Text(
+                                          'Eyes', style: TextStyle(
+                                            color: MyColors.myWhite,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15),),
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.all(5),
+                                        child: const Text('10 Doctors',
+                                          style: TextStyle(
+                                              color: MyColors.myWhite,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 8),),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            )
+                        ),
+                        const SizedBox(height: 20,),
+                        Container(
+                          margin: const EdgeInsets.only(left: 30),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              const Text('Top Rate', style: TextStyle(
+                                  fontSize: 19, fontWeight: FontWeight.bold)),
+                              const Expanded(child: SizedBox()),
+                              Container(
+                                margin: const EdgeInsets.only(right: 30),
+                                child: const Text(
+                                    'All See', style: TextStyle(fontSize: 15)),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 20,),
+                        SizedBox(
+                            height: 100,
+                            child: firstDoctorList()
+                        ),
+                        const SizedBox(height: 10,),
+                        SizedBox(
+                            height: 100,
+                            child: secondDoctorList()
+                        ),
+                        const SizedBox(height: 10,),
+                        SizedBox(
+                            height: 100,
+                            child: thirdDoctorList()
+                        ),
+                      ],
+                    )
+                ),
               ],
             ),
-          ),
-          Container(
-              width: MediaQuery.of(context).size.width,
-              margin: const EdgeInsets.only(top: 100),
-              decoration: const BoxDecoration(
-                color: MyColors.myGrey,
-                borderRadius: BorderRadius.only(topRight: Radius.circular(30),
-                  topLeft: Radius.circular(30))),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(top: 20, left: 30),
-                    child: const Text(
-                      "Hi,Habiba", style: TextStyle(fontSize: 17),),
-                  ),
-                  const SizedBox(height: 10,),
-                  Container(
-                    margin: const EdgeInsets.only(left: 30),
-                    child: const Text("Welcome Back", style: TextStyle(
-                        fontSize: 25, fontWeight: FontWeight.bold),),
-                  ),
-                  const SizedBox(height: 25,),
-                  Container(
-                    margin: const EdgeInsets.only(left: 30,right:30 ),
-                    child: TextFormField(
-                        textAlign: TextAlign.left,
-                        textDirection: TextDirection.ltr,
-                        cursorHeight: 30,
-                        decoration: InputDecoration(
-                     filled: true,
-                     fillColor: Colors.white,
-                     labelStyle:  TextStyle(color: Colors.grey.shade600),
-                     contentPadding: const EdgeInsets.only(left:20),
-                     labelText: "Search ... ",
-                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(
-                      width: 0,
-                      style: BorderStyle.none,
-                    ),
-                ),
-                     suffixIcon: Container(
-                       decoration: const BoxDecoration(
-                         color: MyColors.myBrown,
-                         borderRadius: BorderRadius.all(Radius.circular(10)  ),),
-                       child: const Icon(Icons.search,color: Colors.white,),
-                      )
-                   )
-                 ),
-                  ),
-                  const SizedBox(height: 40,),
-                  Container(
-                    margin: const EdgeInsets.only(left: 30),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        const Text('Category', style: TextStyle(
-                            fontSize: 19, fontWeight: FontWeight.bold)),
-                        const Expanded(child: SizedBox()),
-                        Container(
-                          margin: const EdgeInsets.only(right: 30),
-                          child: const Text(
-                              'All See', style: TextStyle(fontSize: 15)),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 20,),
-                  SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          Container(
-                            decoration: const BoxDecoration(
-                                color: MyColors.myBrown,
-                                borderRadius: BorderRadius.all(Radius.circular(
-                                    10))),
-                            width: 90,
-                            height: 120,
-                            margin: const EdgeInsets.only(left: 30),
-                            child: Column(
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.only(top: 20),
-                                  child: Image.asset(
-                                    'assets/image/teeth.png', width: 30,),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: 10),
-                                  child: const Text('Dental', style: TextStyle(
-                                      color: MyColors.myWhite,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.all(5),
-                                  child: const Text('26 Doctors',
-                                    style: TextStyle(color: MyColors.myWhite,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 8),),
-                                )
-                              ],
-                            ),
-                          ),
-                          Container(
-                            decoration: const BoxDecoration(
-                                color: MyColors.myBrown,
-                                borderRadius: BorderRadius.all(Radius.circular(
-                                    10))),
-                            width: 90,
-                            height: 120,
-                            margin: const EdgeInsets.only(left: 20),
-                            child: Column(
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.only(top: 20),
-                                  child: Image.asset(
-                                    'assets/image/heart.png', width: 30,),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: 10),
-                                  child: const Text('Heart', style: TextStyle(
-                                      color: MyColors.myWhite,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.all(5),
-                                  // margin: EdgeInsets.only(top: 10),
-                                  child: const Text('16 Doctors',
-                                    style: TextStyle(color: MyColors.myWhite,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 8),),
-                                )
-                              ],
-                            ),
-                          ),
-                          Container(
-                            decoration: const BoxDecoration(
-                                color: MyColors.myBrown,
-                                borderRadius: BorderRadius.all(Radius.circular(
-                                    10))),
-                            width: 90,
-                            height: 120,
-                            margin: const EdgeInsets.only(left: 20),
-                            child: Column(
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.only(top: 20),
-                                  child: Image.asset(
-                                    'assets/image/brain.png', width: 30,),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: 10),
-                                  child: const Text('Brain', style: TextStyle(
-                                      color: MyColors.myWhite,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.all(5),
-                                  // margin: EdgeInsets.only(top: 10),
-                                  child: const Text('32 Doctors',
-                                    style: TextStyle(color: MyColors.myWhite,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 8),),
-                                )
-                              ],
-                            ),
-                          ),
-                          Container(
-                            decoration: const BoxDecoration(
-                                color: MyColors.myBrown,
-                                borderRadius: BorderRadius.all(Radius.circular(
-                                    10))),
-                            width: 90,
-                            height: 120,
-                            margin: const EdgeInsets.only(right: 30, left: 20),
-                            child: Column(
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.only(top: 30),
-                                  child: Image.asset(
-                                    'assets/image/eye.png', width: 30,),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: 2),
-                                  child: const Text('Eyes', style: TextStyle(
-                                      color: MyColors.myWhite,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.all(5),
-                                  child: const Text('10 Doctors',
-                                    style: TextStyle(color: MyColors.myWhite,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 8),),
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      )
-                  ),
-                  const SizedBox(height: 20,),
-                  Container(
-                    margin: const EdgeInsets.only(left: 30),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        const Text('Top Rate', style: TextStyle(
-                            fontSize: 19, fontWeight: FontWeight.bold)),
-                        const Expanded(child: SizedBox()),
-                        Container(
-                          margin: const EdgeInsets.only(right: 30),
-                          child: const Text(
-                              'All See', style: TextStyle(fontSize: 15)),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 20,),
-                  SizedBox(
-                    height: 100 ,
-                    child: firstDoctorList()
-                  ),
-                  const SizedBox(height: 10,),
-                  SizedBox(
-                    height: 100 ,
-                    child: secondDoctorList()
-                  ),
-                  const SizedBox(height: 10,),
-                  SizedBox(
-                    height: 100 ,
-                    child: thirdDoctorList()
-                  ),
-                ],
-              )
-          ),
-        ],
-      ),
-    );
+          );
+        }
+        );
   }
-}
+  }
+
