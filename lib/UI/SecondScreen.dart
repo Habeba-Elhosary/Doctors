@@ -12,18 +12,6 @@ class SecondScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // int daysInMonth(DateTime date) {
-    //   var firstDayThisMonth = DateTime(date.year, date.month, date.day);
-    //   var firstDayNextMonth = DateTime(
-    //       firstDayThisMonth.year, firstDayThisMonth.month + 1,
-    //       firstDayThisMonth.day);
-    //   return firstDayNextMonth
-    //       .difference(firstDayThisMonth)
-    //       .inDays;
-    // }
-    // var now = DateTime(2022, 10);
-    // var totalDays = daysInMonth(now);
-    // var listOfDates = List<int>.generate(totalDays, (i) => i + 1);
      return BlocConsumer <AppCubit,AppState>(
       listener: (context,state){},
       builder: (context,state) {
@@ -109,86 +97,46 @@ class SecondScreen extends StatelessWidget {
                         fontSize: 19,
                         fontWeight: FontWeight.bold,
                         decoration: TextDecoration.none)),
-                    const SizedBox(height: 10,),
+                    const SizedBox(height: 3,),
                     SizedBox(
                       height: 100,
                       child: Padding(
-                        padding: const EdgeInsets.all(15),
+                        padding: const EdgeInsets.all(5),
                         child: ListView.separated(
-                          itemBuilder: (context, index) =>
-                              Padding(
-                                padding: const EdgeInsets.all(8),
-                                child: InkWell(
-                                  onTap: () {
-                                    AppCubit.get(context).dataClick(index);
-                                  },
-                                  child: Container(
-                                    height: 80,
-                                    width: 50,
-                                    decoration: BoxDecoration(
-                                      color: AppCubit.get(context).selectedIndex[index]==false?Colors.white:Colors.yellow,
-                                      borderRadius: BorderRadius.circular(15),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(0.2),
-                                          spreadRadius: 2,
-                                          blurRadius: 2,
-                                        ),
-                                      ],
+                          itemBuilder: (context, index) => Padding(
+                                padding: const EdgeInsets.all(4),
+                                  child:  ElevatedButton(
+                                    style:  ButtonStyle(
+                                      backgroundColor: MaterialStateProperty.all(AppCubit.get(context).selectedIndex[index]==false?Colors.white:MyColors.myBrown,),
+                                      shadowColor: MaterialStateProperty.all( MyColors.myBlue,),
                                     ),
-                                    child: Column(
-                                      children: [
-                                        Text(AppCubit.get(context).daysInMonth[index].day),
-                                        const SizedBox(height: 25,),
-                                        Text(DateFormat('EEE').format(AppCubit.get(context).daysInMonth[index])),
-                                      ],
+                                      onPressed: (){
+                                        AppCubit.get(context).dataClick(index);
+                                      },
+                                      child: Column  (
+                                        children:  [
+                                          const SizedBox(height: 15,),
+                                          Text(DateFormat('EEE').format(AppCubit.get(context).daysInMonth[index]),style: const TextStyle(fontSize: 15, color:Colors.black,decoration: TextDecoration.none,fontWeight: FontWeight.bold),),
+                                          const SizedBox(height: 15,),
+                                          Text(AppCubit.get(context).daysInMonth[index].day.toString(),style: const TextStyle(fontSize: 15, color: Colors.black,decoration: TextDecoration.none,fontWeight: FontWeight.bold),),
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ),
-                          separatorBuilder: (context, index) =>
-                          const SizedBox(width: 10,),
-                          itemCount: AppCubit.get(context).selectesIndex.length,
+
+                          separatorBuilder: (context, index) => const SizedBox(width: 5,),
+                          itemCount: AppCubit.get(context).selectedIndex.length,
                           scrollDirection: Axis.horizontal,
                         ),
                       ),
                     ),
-
-                    // SingleChildScrollView(
-                    //   scrollDirection: Axis.horizontal,
-                    //   child: Row(
-                    //     children: listOfDates.map((dateOne) {
-                    //       return GridTile(
-                    //         child: TextButton(
-                    //           style: ButtonStyle(
-                    //             backgroundColor: MaterialStateProperty.all<Color>(
-                    //                 MyColors.myWhite),
-                    //             foregroundColor: MaterialStateProperty.all<Color>(
-                    //                 Colors.black),
-                    //           ),
-                    //           onPressed: () {},
-                    //           child: Center(
-                    //             child: Container(
-                    //                 height: 40,
-                    //                 padding: const EdgeInsets.all(5),
-                    //                 child: Text('$dateOne',
-                    //                     style: const TextStyle(fontSize: 20))
-                    //             ),
-                    //           ),
-                    //         ),
-                    //       );
-                    //     }).toList(),
-                    //   ),
-                    //   // ),
-                    // ),
-
                   ],
                 ),
               ),
 
 
               Container(
-                margin: const EdgeInsets.only(left: 30, top: 450, right: 30),
+                margin: const EdgeInsets.only(left: 30, top: 465, right: 30),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -198,15 +146,15 @@ class SecondScreen extends StatelessWidget {
                         decoration: TextDecoration.none)),
                     const SizedBox(height: 5,),
                     Column(
-                        children: [
+                    children: [
                           Row(
                             children: [
                               ElevatedButton(
-                                  onPressed: () {},
                                   style: ButtonStyle(
                                     backgroundColor: MaterialStateProperty.all<
                                         Color>(MyColors.myWhite),
                                   ),
+                                  onPressed: () {  },
                                   child: Row(
                                     children: const [
                                       Icon(
@@ -317,7 +265,7 @@ class SecondScreen extends StatelessWidget {
                         ])
                   ],
                 ),
-              ), //morningggggg
+              ), //morning
               Container(
                 margin: const EdgeInsets.only(left: 30, top: 600, right: 30),
                 child: Column(
@@ -448,7 +396,7 @@ class SecondScreen extends StatelessWidget {
                         ])
                   ],
                 ),
-              ), // eveninggggg
+              ), // evening
               Container(
                 height: 70,
                 margin: const EdgeInsets.only(right: 30, left: 30, top: 750),
@@ -470,10 +418,9 @@ class SecondScreen extends StatelessWidget {
                   ),
                 ),
               ),
-
             ]
         );
-      }
-      );
+       }
+     );
   }
 }

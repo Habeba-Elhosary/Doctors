@@ -5,7 +5,7 @@ part 'cubit_state.dart';
 
 class AppCubit extends Cubit<AppState> {
   AppCubit() : super(AppInitState());
-  static get(context) => BlocProvider.of(context);
+  static AppCubit get(context) => BlocProvider.of(context);
   List <bool> selectedIndex = [] ;
   List <DateTime> daysInMonth =[];
   void getDates(){
@@ -21,7 +21,7 @@ class AppCubit extends Cubit<AppState> {
   }
   int currentIndex = 0;
   void dataClick (index){
-    selectedIndex[index]=false;
+    selectedIndex[currentIndex]=false;
     selectedIndex[index]=true;
     currentIndex =index;
     print(index);
